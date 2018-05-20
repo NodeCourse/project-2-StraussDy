@@ -1,0 +1,44 @@
+doctype html
+html(lang='fr')
+    head
+        meta(charset='UTF-8')
+        title Twitter
+        link(rel="icon" type="image/ico" href="img/twitter.ico")
+        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.12/css/all.css', integrity='sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9', crossorigin='anonymous')
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css")
+        link(rel='stylesheet', href='css/style.css')
+
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js")
+        script(src='https://cdn.jsdelivr.net/npm/vue')
+
+    body
+        div.navbar-fixed
+            nav.red
+                div.nav-wrapper
+                    a.brand-logo(href='/')
+                        img(src="/img/twitter.ico")
+                    ul#nav-mobile.right.hide-on-med-and-down
+                        li
+                            a.dropdown-trigger(href='#' data-target='dropdown1') Hello #{user.userName}
+                        li
+                            a(href='/addReview')
+                                button(class="btnTwitter") Twitter
+                    ul#dropdown1.dropdown-content
+                        li
+                            a(href="/disconnect").red-text Déconnexion
+        div.container
+            h3 Écrire un nouveau Tweet
+                form.addArticle(method='POST', action='/api/addArticle')
+                    input(type='hidden', name='type', value='add')
+                    div.input-field
+                        label(for="nomDuTweet") Nom du Tweet :
+                        input(type='text' id="nomDuTweet" name='NomTweet')
+                    div.input-field
+                        label(for="review") Commentaire :
+                        textarea(name='Review' id="review").materialize-textarea
+                    div.input-field
+                        button(type='submit').waves-effect.waves-light.btn.red  Twitter
+
+        script.
+            $('.dropdown-trigger').dropdown();

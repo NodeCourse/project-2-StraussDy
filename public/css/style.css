@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
+
+* {
+    font-family: Ubuntu, sans-serif
+}
+
+body {
+    color: #1da1f2;
+    background-color: #141d26;
+}
+
+img {
+    width: 60px;
+}
+
+img:hover {
+    width: 65px;
+}
+
+body div.container {
+    max-width: 1190px;
+    margin: 30px auto
+}
+
+span {
+    color: #1da1f2;
+    font-size: 20px;
+    margin: auto;
+}
+
+input {
+    color: #1da1f2;
+}
+
+textarea {
+    color: #1da1f2;
+}
+
+.reviewText {
+    color: #c1cad3;
+}
+
+.waves-effect.waves-light.btn.red {
+    border-radius: 100px;
+    box-shadow: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #1da1f2;
+    border: 1px solid #1da1f2;
+    border-top-color: rgb(29, 161, 242);
+    border-right-color: rgb(29, 161, 242);
+    border-bottom-color: rgb(29, 161, 242);
+    border-left-color: rgb(29, 161, 242);
+    color: #fff;
+    margin-right: 30px;
+}
+
+.nav-wrapper {
+    background: #243447;
+    height: 46px;
+    max-width: 1190px;
+    margin: auto;
+}
+
+.red {
+    background-color: #243447 !important;
+}
+
+.btnTwitter {
+    border-radius: 100px;
+    box-shadow: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #1da1f2;
+    border: 1px solid #1da1f2;
+    border-top-color: rgb(29, 161, 242);
+    border-right-color: rgb(29, 161, 242);
+    border-bottom-color: rgb(29, 161, 242);
+    border-left-color: rgb(29, 161, 242);
+    color: #fff;
+}
+
+.btnTwitter:hover{
+    background-color: #006dbf;
+    border-color: #006dbf;
+    color: #fff;
+}

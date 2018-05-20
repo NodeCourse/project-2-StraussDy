@@ -1,0 +1,102 @@
+doctype html
+html(lang='fr')
+    head
+        meta(charset='UTF-8')
+        title Twitter
+        link(rel="icon" type="image/ico" href="img/twitter.ico")
+        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.12/css/all.css', integrity='sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9', crossorigin='anonymous')
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css")
+        link(rel='stylesheet', href='css/style.css')
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js")
+        script(src='https://cdn.jsdelivr.net/npm/vue')
+
+    body
+        div.navbar-fixed
+            nav.red
+                div.nav-wrapper
+                    a.brand-logo(href='/')
+                        img(src="/img/twitter.ico")
+                    ul#nav-mobile.right.hide-on-med-and-down
+                        li
+                            a.dropdown-trigger(href='#' data-target='dropdown1') Hello #{user.userName}
+                        li
+                            a(href='/addReview')
+                                button(class="btnTwitter") Tweeter
+                    ul#dropdown1.dropdown-content
+                        li
+                            a(href="/disconnect").red-text Déconnexion
+        div.container
+            h3 Fil d'actualités :
+            #app
+                p(v-if="!reviews") Aucun Tweet
+
+                ul.listArticle
+                    li(v-for='item in reviews')
+                        .reviewText
+                            h4 {{item.NomTweet}}
+                            p {{item.Review}}
+                        .listComment
+                            ul
+                                li Tweet :
+                                li(v-for='comment in item.comments').row.no-margin
+                                    .col.s1.b-r {{comment.user.userName}}
+                                    .col.s11 {{comment.comment}}
+                        .addComment.row
+                            div.input-field.col.s10
+                                label(:for="'textarea-' + item.id") Commentez :
+                                textarea(:id="'textarea-' + item.id").materialize-textarea
+                            div.input-field.col.s2
+                                button(:onclick="'getTextareaValueByArticleId(' + item.id + ',addComment)'").waves-effect.waves-light.btn.red Tweeter
+            script.
+                $('.dropdown-trigger').dropdown();
+                var getJSON = function (url, callback) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', url, true);
+                    xhr.responseType = 'json';
+                    xhr.onloadend = function () {
+                        var status = xhr.status;
+                        if (status === 200) {
+                            callback(null, xhr.response);
+                        } else {
+                            callback(status, xhr.response);
+                        }
+                    };
+                    xhr.send();
+                };
+                var app = new Vue({
+                    el: '#app',
+                    data: {
+                        reviews: null
+                    }
+                });
+                function loadArticles() {
+                    getJSON("/api/getAllReviews",
+                        function (err, data) {
+                            if (err !== null) {
+                                console.error("Erreur : ", err)
+                            } else {
+                                app.reviews = null;
+                                app.reviews = data;
+                            }
+                        });
+                }
+                function getTextareaValueByArticleId(id, callback) {
+                    var textarea = document.getElementById("textarea-" + id);
+                    callback(id, textarea.value);
+                }
+                function addComment(id, comment) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "/api/addComment-" + id, true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.onloadend = function () {
+                        var status = xhr.status;
+                        if (status === 200) {
+                            loadArticles();
+                        } else {
+                            console.error("addComment(" + id + ") : ", xhr.response, "response code : " + status);
+                        }
+                    };
+                    xhr.send("comment=" + comment);
+                }
+                loadArticles();

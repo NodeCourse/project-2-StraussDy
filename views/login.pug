@@ -1,0 +1,31 @@
+doctype html
+html(lang='fr')
+    head
+        meta(charset='UTF-8')
+        title Twitter
+        link(rel="icon" type="image/ico" href="img/twitter.ico")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js")
+
+        link(rel='stylesheet', href='css/style.css')
+
+    body
+        div.navbar-fixed
+            nav.red
+                div.nav-wrapper
+                    img(src="/img/twitter.ico")
+                    ul#nav-mobile.right.hide-on-med-and-down
+                        li
+                            a(href="/register").waves-effect.waves-light.btn.red  Inscription
+
+        div.container
+            div #{failureFlash}
+            form(method="post")
+                div.input-field
+                    label(for="email") Email
+                    input(type="email", name="username", id="email")
+                div.input-field
+                    label(for="password") Mot de Passe
+                    input(type="password", name="password", id="password")
+                div.input-field
+                    button(type="submit").waves-effect.waves-light.btn.red Se connecter
